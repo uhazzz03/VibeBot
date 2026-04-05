@@ -1,17 +1,18 @@
 from recommender import recommend_songs
 
+
 MOOD_KEYWORDS = {
     "sad": [
         "sad", "down", "upset", "heartbroken", "depressed", "cry", "low", "unhappy"
     ],
     "happy": [
-        "happy", "good", "great", "excited", "joyful", "cheerful", "fun"
+        "happy", "good", "great", "excited", "joyful", "cheerful", "fun", "amazing"
     ],
     "chill": [
         "chill", "laid back", "easy", "vibing", "mellow"
     ],
     "calm": [
-        "calm", "relaxed", "peaceful", "stress free", "meditation", "soothing"
+        "calm", "relaxed", "peaceful", "stress free", "meditation", "soothing", "stressed"
     ],
     "energetic": [
         "energetic", "gym", "workout", "exercise", "pump", "hype", "running", "party", "upbeat"
@@ -21,23 +22,24 @@ MOOD_KEYWORDS = {
     ]
 }
 
+
 def detect_mood(text):
     text = text.lower()
-
     mood_scores = {mood: 0 for mood in MOOD_KEYWORDS}
 
     for mood, keywords in MOOD_KEYWORDS.items():
         for keyword in keywords:
             if keyword in text:
                 mood_scores[mood] += 1
-    
-    best_mood = max(mood_scores, key = mood_scores.get)
+
+    best_mood = max(mood_scores, key=mood_scores.get)
 
     if mood_scores[best_mood] == 0:
         return "chill"
-    
+
     return best_mood
-    
+
+
 def format_song_results(songs):
     lines = []
     for _, row in songs.iterrows():
@@ -45,9 +47,9 @@ def format_song_results(songs):
     return "\n\n".join(lines)
 
 
-def get_response(user_input):
+def get_response(user_input, favorite_genres=None):
     mood = detect_mood(user_input)
-    songs = recommend_songs(mood)
+    songs = recommend_songs(mood, favorite_genres=favorite_genres)
 
     intro_map = {
         "sad": "I’ve got some songs for your sad mood:",
@@ -59,8 +61,7 @@ def get_response(user_input):
     }
 
     if songs.empty:
-        return "I couldn't find songs for that mood 😅"
-
+        return "I couldn't find songs for that mood yet 😅"
 
     intro = intro_map.get(mood, "Here are some songs for you:")
     results = format_song_results(songs)
