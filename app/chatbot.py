@@ -1,26 +1,13 @@
 from recommender import recommend_songs
+import pickle
+import os
 
+MODEL_PATH = "models/mood_classifier.pkl"
 
-MOOD_KEYWORDS = {
-    "sad": [
-        "sad", "down", "upset", "heartbroken", "depressed", "cry", "low", "unhappy"
-    ],
-    "happy": [
-        "happy", "good", "great", "excited", "joyful", "cheerful", "fun", "amazing"
-    ],
-    "chill": [
-        "chill", "laid back", "easy", "vibing", "mellow"
-    ],
-    "calm": [
-        "calm", "relaxed", "peaceful", "stress free", "meditation", "soothing", "stressed"
-    ],
-    "energetic": [
-        "energetic", "gym", "workout", "exercise", "pump", "hype", "running", "party", "upbeat"
-    ],
-    "focused": [
-        "focus", "focused", "study", "studying", "concentrate", "productivity", "work"
-    ]
-}
+mood_model = None
+if os.path.exists(MODEL_PATH):
+    with open(MODEL_PATH, "rb") as file:
+        mood_model = pickle.load(file)
 
 ACTIVITY_KEYWORDS = {
     "study": ["study", "studying", "focus", "homework", "revision"],
@@ -33,21 +20,10 @@ ACTIVITY_KEYWORDS = {
 }
 
 
-def detect_mood(text):
-    text = text.lower()
-    mood_scores = {mood: 0 for mood in MOOD_KEYWORDS}
-
-    for mood, keywords in MOOD_KEYWORDS.items():
-        for keyword in keywords:
-            if keyword in text:
-                mood_scores[mood] += 1
-
-    best_mood = max(mood_scores, key=mood_scores.get)
-
-    if mood_scores[best_mood] == 0:
+def predict_mood(text):
+    if mood_model is None:
         return "chill"
-
-    return best_mood
+    return mood_model.predict([text])[0]
 
 def detect_activity(text):
     text = text.lower()
@@ -76,7 +52,7 @@ def format_song_results(songs):
 
 
 def get_response(user_input, favorite_genres=None, favorite_moods=None, preferred_language=None):
-    mood = detect_mood(user_input)
+    mood = predict_mood(user_input)
     activity = detect_activity(user_input)
     songs = recommend_songs(
         mood,
@@ -103,4 +79,4 @@ def get_response(user_input, favorite_genres=None, favorite_moods=None, preferre
 
     activity_text = f"**Detected activity:** `{activity}`\n\n" if activity else ""
 
-    return f"**Detected mood:** `{mood}`\n\n{activity_text}{intro}\n\n{results}"
+    return f"**Predicted mood:** `{mood}`\n\n{activity_text}{intro}\n\n{results}"

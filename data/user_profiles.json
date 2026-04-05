@@ -1,11 +1,8 @@
 {
     "uhass": {
-        "favorite_genres": [
-            "pop"
-        ],
-        "favorite_moods": [
-            "happy"
-        ]
+        "favorite_genres": [],
+        "favorite_moods": [],
+        "preferred_language": ""
     },
     "uhasskjnn": {
         "favorite_genres": [],
@@ -22,5 +19,10 @@
             "calm"
         ],
         "preferred_language": "instrumental"
+    },
+    "uhass2": {
+        "favorite_genres": [],
+        "favorite_moods": [],
+        "preferred_language": ""
     }
 }
