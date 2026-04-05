@@ -19,12 +19,13 @@ def save_profiles(profiles):
 
 def get_user_profile(username):
     profiles = load_profiles()
-    return profiles.get(username, {"favorite_genres": [], "favorite_moods": []})
+    return profiles.get(username, {"favorite_genres": [], "favorite_moods": [], "preferred_language": ""})
 
-def update_user_profile(username, favorite_genres, favorite_moods):
+def update_user_profile(username, favorite_genres, favorite_moods, preferred_language):
     profiles = load_profiles()
     profiles[username] = {
         "favorite_genres": favorite_genres,
-        "favorite_moods": favorite_moods
+        "favorite_moods": favorite_moods,
+        "preferred_language": preferred_language
     }
     save_profiles(profiles)

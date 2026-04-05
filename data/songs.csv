@@ -1,21 +1,26 @@
-song,artist,genre,mood
-Blinding Lights,The Weeknd,pop,energetic
-Someone Like You,Adele,ballad,sad
-Levitating,Dua Lipa,pop,happy
-Lose Yourself,Eminem,hip-hop,energetic
-Weightless,Marconi Union,ambient,calm
-Peaches & Cream,Lo-fi Beats,chill,chill
-Eye of the Tiger,Survivor,rock,energetic
-Fix You,Coldplay,alternative,sad
-Sunflower,Post Malone,hip-hop,chill
-Titanium,David Guetta,edm,energetic
-Happy,Pharrell Williams,pop,happy
-Best Day of My Life,American Authors,indie,happy
-Someone You Loved,Lewis Capaldi,pop,sad
-River Flows in You,Yiruma,instrumental,calm
-Clair de Lune,Debussy,classical,calm
-Lofi Study Session,ChilledCow,lofi,focused
-Deep Focus,Focus Flow,instrumental,focused
-Midnight Library,Study Beats,lofi,focused
-Ocean Eyes,Billie Eilish,alternative,chill
-Good as Hell,Lizzo,pop,happy
+song,artist,genre,mood,activity,energy,language,popularity,vibe
+Blinding Lights,The Weeknd,pop,energetic,drive,high,english,95,night
+Someone Like You,Adele,ballad,sad,relax,low,english,92,emotional
+Levitating,Dua Lipa,pop,happy,party,high,english,90,fun
+Lose Yourself,Eminem,hip-hop,energetic,gym,high,english,94,motivated
+Weightless,Marconi Union,ambient,calm,sleep,low,english,80,peaceful
+Peaches & Cream,Lo-fi Beats,chill,relax,low,english,60,soft
+Eye of the Tiger,Survivor,rock,energetic,gym,high,english,89,power
+Fix You,Coldplay,alternative,sad,relax,low,english,88,emotional
+Sunflower,Post Malone,hip-hop,chill,drive,medium,english,91,sunny
+Titanium,David Guetta,edm,energetic,party,high,english,90,hype
+Happy,Pharrell Williams,pop,happy,party,high,english,89,fun
+Best Day of My Life,American Authors,indie,happy,drive,high,english,84,bright
+Someone You Loved,Lewis Capaldi,pop,sad,relax,low,english,90,heartfelt
+River Flows in You,Yiruma,instrumental,calm,study,low,instrumental,86,peaceful
+Clair de Lune,Debussy,classical,calm,study,low,instrumental,85,gentle
+Lofi Study Session,ChilledCow,lofi,focused,study,low,english,75,deep-focus
+Deep Focus,Focus Flow,instrumental,focused,study,low,instrumental,70,deep-focus
+Midnight Library,Study Beats,lofi,focused,study,low,english,72,quiet
+Ocean Eyes,Billie Eilish,alternative,chill,relax,low,english,88,dreamy
+Good as Hell,Lizzo,pop,happy,gym,high,english,87,confident
+Stronger,Kanye West,hip-hop,energetic,gym,high,english,91,power
+Night Drive,Synthwave Dreams,electronic,chill,drive,medium,english,65,night
+Soft Rain,Piano Echoes,classical,calm,sleep,low,instrumental,68,peaceful
+Focus Mode,Coding Tones,lofi,focused,work,low,english,66,deep-focus
+On Top of the World,Imagine Dragons,rock,happy,drive,high,english,86,bright

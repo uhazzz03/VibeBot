@@ -10,5 +10,17 @@
     "uhasskjnn": {
         "favorite_genres": [],
         "favorite_moods": []
+    },
+    "guest": {
+        "favorite_genres": [
+            "lofi",
+            "rock"
+        ],
+        "favorite_moods": [
+            "focused",
+            "energetic",
+            "calm"
+        ],
+        "preferred_language": "instrumental"
     }
 }

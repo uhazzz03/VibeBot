@@ -14,6 +14,7 @@ with st.sidebar:
 
     all_genres = ["pop", "rock", "hip-hop", "ambient", "chill", "alternative", "edm", "indie", "instrumental", "classical", "lofi"]
     all_moods = ["sad", "happy", "chill", "calm", "energetic", "focused"]
+    all_languages = ["", "english", "instrumental"]
 
     profile = get_user_profile(username)
 
@@ -29,8 +30,14 @@ with st.sidebar:
         default=profile.get("favorite_moods", [])
     )
 
+    preferred_language = st.selectbox(
+        "Preferred language",
+        all_languages,
+        index=all_languages.index(profile.get("preferred_language", "")) if profile.get("preferred_language", "") in all_languages else 0
+    )
+
     if st.button("Save Preferences"):
-        update_user_profile(username, favorite_genres, favorite_moods)
+        update_user_profile(username, favorite_genres, favorite_moods, preferred_language)
         st.success("Preferences saved!")
 
 if "messages" not in st.session_state:
@@ -56,7 +63,7 @@ if user_input:
     with st.chat_message("user"):
         st.markdown(user_input)
 
-    response = get_response(user_input, favorite_genres=favorite_genres, favorite_moods=favorite_moods)
+    response = get_response(user_input, favorite_genres=favorite_genres, favorite_moods=favorite_moods, preferred_language=preferred_language)
 
     st.session_state.messages.append({
         "role": "assistant",
