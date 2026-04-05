@@ -43,13 +43,20 @@ def detect_mood(text):
 def format_song_results(songs):
     lines = []
     for _, row in songs.iterrows():
-        lines.append(f"- **{row['song']}** by *{row['artist']}*  \n  Genre: `{row['genre']}`")
+        lines.append(
+            f"- **{row['song']}** by *{row['artist']}*  \n"
+            f"  Genre: `{row['genre']}` | Mood: `{row['mood']}` | Score: `{row['score']}`"
+        )
     return "\n\n".join(lines)
 
 
-def get_response(user_input, favorite_genres=None):
+def get_response(user_input, favorite_genres=None, favorite_moods=None):
     mood = detect_mood(user_input)
-    songs = recommend_songs(mood, favorite_genres=favorite_genres)
+    songs = recommend_songs(
+        mood,
+        favorite_genres=favorite_genres,
+        favorite_moods=favorite_moods
+    )
 
     intro_map = {
         "sad": "I’ve got some songs for your sad mood:",

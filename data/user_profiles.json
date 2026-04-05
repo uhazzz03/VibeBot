@@ -1,8 +1,14 @@
 {
     "uhass": {
-        "favorite_genres": [],
+        "favorite_genres": [
+            "pop"
+        ],
         "favorite_moods": [
-            "energetic"
+            "happy"
         ]
+    },
+    "uhasskjnn": {
+        "favorite_genres": [],
+        "favorite_moods": []
     }
 }
