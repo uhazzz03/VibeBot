@@ -9,16 +9,9 @@
         "favorite_moods": []
     },
     "guest": {
-        "favorite_genres": [
-            "lofi",
-            "rock"
-        ],
-        "favorite_moods": [
-            "focused",
-            "energetic",
-            "calm"
-        ],
-        "preferred_language": "instrumental"
+        "favorite_genres": [],
+        "favorite_moods": [],
+        "preferred_language": "english"
     },
     "uhass2": {
         "favorite_genres": [],

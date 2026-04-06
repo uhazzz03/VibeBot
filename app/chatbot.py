@@ -22,8 +22,20 @@ ACTIVITY_KEYWORDS = {
 
 def predict_mood(text):
     if mood_model is None:
-        return "chill"
-    return mood_model.predict([text])[0]
+        return "chill", 0.0, {}
+    
+    probabilities = mood_model.predict_proba([text])[0]
+    labels = mood_model.named_steps["classifier"].classes_
+
+    mood_scores = {
+        label: float(prob)
+        for label, prob in zip(labels, probabilities)
+    }
+
+    predicted_mood = max(mood_scores, key=mood_scores.get)
+    confidence = mood_scores[predicted_mood]
+
+    return predicted_mood, confidence, mood_scores
 
 def detect_activity(text):
     text = text.lower()
@@ -52,7 +64,7 @@ def format_song_results(songs):
 
 
 def get_response(user_input, favorite_genres=None, favorite_moods=None, preferred_language=None):
-    mood = predict_mood(user_input)
+    mood, confidence, mood_scores = predict_mood(user_input)
     activity = detect_activity(user_input)
     songs = recommend_songs(
         mood,
@@ -78,5 +90,16 @@ def get_response(user_input, favorite_genres=None, favorite_moods=None, preferre
     results = format_song_results(songs)
 
     activity_text = f"**Detected activity:** `{activity}`\n\n" if activity else ""
+    confidence_text = f"**Prediction confidence:** `{confidence:.2%}`\n\n"
 
-    return f"**Predicted mood:** `{mood}`\n\n{activity_text}{intro}\n\n{results}"
+    top_scores = sorted(mood_scores.items(), key=lambda x: x[1], reverse=True)[:3]
+    score_lines = "\n".join([f"- `{label}`: {score:.2%}" for label, score in top_scores])
+    score_text = f"**Top mood probabilities:**\n{score_lines}\n\n"
+
+    return (
+        f"**Predicted mood:** `{mood}`\n\n"
+        f"{confidence_text}"
+        f"{activity_text}"
+        f"{score_text}"
+        f"{intro}\n\n{results}"
+    )
