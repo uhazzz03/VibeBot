@@ -2,7 +2,6 @@ from recommender import recommend_songs
 import pickle
 import os
 from spotify_client import search_tracks, search_playlists
-import streamlit as st
 
 MODEL_PATH = "models/mood_classifier.pkl"
 
@@ -90,10 +89,8 @@ def format_spotify_tracks(tracks):
 
     lines = []
     for track in tracks:
-        st.markdown(
-            f"🎵 [{track['name']} by {track['artist']}]({track['url']})"
-        )
-    return "\n".join(lines)
+        lines.append(f"🎵 [{track['name']} — {track['artist']}]({track['url']})")
+    return "\n\n".join(lines)
 
 def format_spotify_playlists(playlists):
     if not playlists:
@@ -101,10 +98,8 @@ def format_spotify_playlists(playlists):
 
     lines = []
     for playlist in playlists:
-        st.markdown(
-            f"📀 [{playlist['name']}]({playlist['url']}) by {playlist['owner']}"
-        )
-    return "\n".join(lines)
+        lines.append(f"📀 [{playlist['name']}]({playlist['url']}) by *{playlist['owner']}*")
+    return "\n\n".join(lines)
 
 def get_response(user_input, favorite_genres=None, favorite_moods=None, preferred_language=None, developer_mode=False):
     mood, confidence, mood_scores = predict_mood(user_input)
