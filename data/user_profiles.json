@@ -1,7 +1,17 @@
 {
     "uhass": {
-        "favorite_genres": [],
-        "favorite_moods": [],
+        "favorite_genres": [
+            "chill",
+            "alternative",
+            "rock",
+            "hip-hop"
+        ],
+        "favorite_moods": [
+            "calm",
+            "sad",
+            "chill",
+            "focused"
+        ],
         "preferred_language": ""
     },
     "uhasskjnn": {

@@ -41,16 +41,26 @@ def search_playlists(query, limit=5):
     if sp is None:
         return []
 
-    results = sp.search(q=query, type="playlist", limit=limit)
-    playlists = results.get("playlists", {}).get("items", [])
+    try:
+        results = sp.search(q=query, type="playlist", limit=limit)
+        playlists = results.get("playlists", {}).get("items", [])
 
-    formatted_playlists = []
-    for playlist in playlists:
-        owner_name = playlist["owner"]["display_name"] if playlist.get("owner") else "Unknown"
-        formatted_playlists.append({
-            "name": playlist["name"],
-            "owner": owner_name,
-            "url": playlist["external_urls"]["spotify"]
-        })
+        formatted_playlists = []
 
-    return formatted_playlists
+        for playlist in playlists:
+            if not playlist:
+                continue  # skip None entries
+
+            owner = playlist.get("owner") or {}
+            owner_name = owner.get("display_name", "Unknown")
+
+            formatted_playlists.append({
+                "name": playlist.get("name", "Unknown Playlist"),
+                "owner": owner_name,
+                "url": playlist.get("external_urls", {}).get("spotify", "#")
+            })
+
+        return formatted_playlists
+
+    except Exception:
+        return []
