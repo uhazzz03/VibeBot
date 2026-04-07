@@ -10,6 +10,15 @@ if os.path.exists(MODEL_PATH):
     with open(MODEL_PATH, "rb") as file:
         mood_model = pickle.load(file)
 
+else:
+    try:
+        from train_model import train_and_save_model
+        train_and_save_model()
+        with open(MODEL_PATH, "rb") as file:
+            mood_model = pickle.load(file)
+    except Exception:
+        mood_model = None
+
 ACTIVITY_KEYWORDS = {
     "study": ["study", "studying", "focus", "homework", "revision"],
     "gym": ["gym", "workout", "exercise", "lifting", "training"],

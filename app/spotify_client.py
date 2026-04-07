@@ -1,12 +1,9 @@
-import os
-from dotenv import load_dotenv
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+import streamlit as st
 
-load_dotenv()
-
-SPOTIFY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
-SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
+SPOTIFY_CLIENT_ID = st.secrets.get("SPOTIPY_CLIENT_ID")
+SPOTIFY_CLIENT_SECRET = st.secrets.get("SPOTIPY_CLIENT_SECRET")
 
 def get_spotify_client():
     if not SPOTIFY_CLIENT_ID or not SPOTIFY_CLIENT_SECRET:
