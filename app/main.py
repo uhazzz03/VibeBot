@@ -10,6 +10,8 @@ st.caption("Your mood-based music chatbot")
 with st.sidebar:
     st.header("Your Profile")
 
+    developer_mode = st.checkbox("Developer mode", value = False)
+
     username = st.text_input("Enter your username", value="guest")
 
     all_genres = ["pop", "rock", "hip-hop", "ambient", "chill", "alternative", "edm", "indie", "instrumental", "classical", "lofi"]
@@ -44,7 +46,7 @@ if "messages" not in st.session_state:
     st.session_state.messages = [
         {
             "role": "assistant",
-            "content": "Hey! Tell me how you're feeling, and I’ll suggest some songs 🎶"
+            "content": "Hey! I'm VibeBot 🎧\nTell me your mood, activity, or vibe, I'll find the perfect music for you."
         }
     ]
 
@@ -63,7 +65,7 @@ if user_input:
     with st.chat_message("user"):
         st.markdown(user_input)
 
-    response = get_response(user_input, favorite_genres=favorite_genres, favorite_moods=favorite_moods, preferred_language=preferred_language)
+    response = get_response(user_input, favorite_genres=favorite_genres, favorite_moods=favorite_moods, preferred_language=preferred_language, developer_mode=developer_mode)
 
     st.session_state.messages.append({
         "role": "assistant",

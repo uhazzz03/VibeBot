@@ -80,7 +80,7 @@ def format_spotify_tracks(tracks):
 
     lines = []
     for track in tracks:
-        lines.append(f"- [{track['name']} — {track['artist']}]({track['url']})")
+        lines.append(f"🎵 [{track['name']} — {track['artist']}]({track['url']})")
     return "\n".join(lines)
 
 def format_spotify_playlists(playlists):
@@ -89,10 +89,10 @@ def format_spotify_playlists(playlists):
 
     lines = []
     for playlist in playlists:
-        lines.append(f"- [{playlist['name']}]({playlist['url']}) by *{playlist['owner']}*")
+        lines.append(f"📀 [{playlist['name']}]({playlist['url']}) by *{playlist['owner']}*")
     return "\n".join(lines)
 
-def get_response(user_input, favorite_genres=None, favorite_moods=None, preferred_language=None):
+def get_response(user_input, favorite_genres=None, favorite_moods=None, preferred_language=None, developer_mode=False):
     mood, confidence, mood_scores = predict_mood(user_input)
     activity = detect_activity(user_input)
     songs = recommend_songs(
@@ -128,22 +128,25 @@ def get_response(user_input, favorite_genres=None, favorite_moods=None, preferre
     
 
     activity_text = f"**Detected activity:** `{activity}`\n\n" if activity else ""
-    confidence_text = f"**Prediction confidence:** `{confidence:.2%}`\n\n"
+    if developer_mode:
+        confidence_text = f"**Prediction confidence:** `{confidence:.2%}`\n\n"
 
-    top_scores = sorted(mood_scores.items(), key=lambda x: x[1], reverse=True)[:3]
-    score_lines = "\n".join([f"- `{label}`: {score:.2%}" for label, score in top_scores])
-    score_text = f"**Top mood probabilities:**\n{score_lines}\n\n"
+        top_scores = sorted(mood_scores.items(), key=lambda x: x[1], reverse=True)[:3]
+        score_lines = "\n".join([f"- `{label}`: {score:.2%}" for label, score in top_scores])
+        score_text = f"**Top mood probabilities:**\n{score_lines}\n\n"
+    else:
+        confidence_text = ""
+        score_text = ""
 
     spotify_tracks_text = format_spotify_tracks(spotify_tracks)
     spotify_playlists_text = format_spotify_playlists(spotify_playlists)
 
     return (
-        f"**Predicted mood:** `{mood}`\n\n"
+        f"🎧 **Mood detected:** `{mood}`\n\n"
         f"{confidence_text}"
         f"{activity_text}"
         f"{score_text}"
-        f"{intro}\n\n"
-        f"### Local recommendations\n{local_results}\n\n"
+        f"### Your recommendations\n{intro}\n\n{local_results}\n\n"
         f"### Spotify tracks\n{spotify_tracks_text}\n\n"
         f"### Spotify playlists\n{spotify_playlists_text}"
-    )
+)
